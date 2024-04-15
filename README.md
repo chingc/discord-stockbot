@@ -1,0 +1,3 @@
+# discord-stockbot
+
+Write me.
