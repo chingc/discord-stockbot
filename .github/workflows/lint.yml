@@ -1,0 +1,41 @@
+name: Lint
+
+on: push
+
+jobs:
+
+  Ruff:
+    runs-on: ubuntu-latest
+
+    env:
+      RUFF_OUTPUT_FORMAT: github
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'pyproject.toml'
+          cache: 'poetry'
+
+      - name: Sanity checks
+        run: |
+          poetry --version; echo
+          python --version; echo
+          git log -1
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel
+          poetry install
+
+      - name: Ruff check
+        run: poetry run ruff check --diff $(git ls-files '*.py')
+
+      - name: Ruff format
+        run: poetry run ruff format --diff $(git ls-files '*.py')
