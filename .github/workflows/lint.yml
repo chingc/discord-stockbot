@@ -20,8 +20,8 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: 'pyproject.toml'
-          cache: 'poetry'
+          python-version-file: pyproject.toml
+          cache: poetry
 
       - name: Sanity checks
         run: |
