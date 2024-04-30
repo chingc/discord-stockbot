@@ -29,7 +29,7 @@ def lookup(symbol):
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "html.parser")
-        header = soup.find(id="quote-header-info")
+        header = soup.find(attrs={"data-testid": re.compile(r"^quote-hdr")})
         info = {
             "name": header.find("h1").string.rsplit(maxsplit=1)[0],
             "symbol": symbol,
